@@ -1,0 +1,14 @@
+hug:
+  build: ./api
+  expose: 
+    - "8000"
+  environment:
+    - VIRTUAL_HOST=127.0.0.1
+lb:
+  image: jwilder/nginx-proxy
+  links:
+    - hug
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+  ports:
+    - "80:80"
